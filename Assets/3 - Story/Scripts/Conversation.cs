@@ -34,7 +34,8 @@ public class Conversation : MonoBehaviour
     bool inConvo = false;
 
     // Player Manager
-    ClickPlayerController playerManager;
+    ClickPlayerController clickPlayerManager;
+    FPStoryController firstPersonPlayerManager;
 
     // Consequence processing
     public bool questCompletionChange;
@@ -45,8 +46,44 @@ public class Conversation : MonoBehaviour
     private void Start()
     {
         currentText = initialText;
-        player = GameObject.Find("Player").GetComponent<InventoryManager>();
-        playerManager = GameObject.Find("Player").GetComponent<ClickPlayerController>();
+
+        try
+        {
+            player = GameObject.Find("FirstPersonPlayer").GetComponent<InventoryManager>();
+        }
+        catch(System.NullReferenceException e)
+        {
+            Debug.Log(e);
+        }
+
+        try
+        {
+            player = GameObject.Find("ClickMovePlayer").GetComponentInChildren<InventoryManager>();
+            Debug.Log("CLICKMOVE MANAGER FOUND FOR INVENTORY");
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.Log(e);
+        }
+
+
+        try
+        {
+            clickPlayerManager = GameObject.Find("ClickMovePlayer").GetComponentInChildren<ClickPlayerController>();
+            Debug.Log("CLICKMOVE MANAGER FOUND");
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.Log("NO CLICK PLAYER HERE");
+        }
+        try
+        {
+            firstPersonPlayerManager = GameObject.Find("FirstPersonPlayer").GetComponent<FPStoryController>();
+        }
+        catch (System.NullReferenceException e)
+        {
+            Debug.Log("NO FIRST PERSON PLAY HERE");
+        }
         manager = GetComponentInParent<ConversationManager>();
 
         // Setup button
@@ -72,23 +109,19 @@ public class Conversation : MonoBehaviour
                     }
                     else if (waitingForItems)
                     {
-                        Debug.Log("Waiting for items");
                         if (CheckPlayerItems())
                         {
-                            Debug.Log("Have enough items!");
                             ReceiveItems();
                             currentText = receiveItemText;
                             ProcessQuestChange();
                         }
                         else
                         {
-                            Debug.Log("Not enough items ... ");
                             currentText = needItemText;
                         }
                     }
                     else  // No items needed, just talking!
                     {
-                        Debug.Log("Waiting");
                         currentText = initialText;
                         waitingForItems = true;
                     }
@@ -153,14 +186,24 @@ public class Conversation : MonoBehaviour
 
     public void ContinueConversation()
     {
-        Debug.Log("Convo continued");
         continueConversation = true;
         currentConvoPhase++;
         if (currentConvoPhase >= currentText.Count)
         {
+            Debug.Log("CONVO OVER");
             currentConvoPhase = 0;
-            //inConvo = false;
-            playerManager.TurnOnControl();
+
+            if(clickPlayerManager)
+            {
+                clickPlayerManager.TurnOnControl();
+                Debug.Log("Found CLICK ON");
+            }
+            if(firstPersonPlayerManager)
+            {
+                firstPersonPlayerManager.TurnOnControl();
+                Debug.Log("Found FPP ON");
+            }
+            
             MoveOnToNextConversation();
         }
     }

@@ -14,11 +14,13 @@ public class ConversationManager : MonoBehaviour
     // UI Management
     public TMP_Text interactPrompt;
     public UIManager npcTextUI;
+    [HideInInspector]
     public TMP_Text npcText;
-    public TMP_Text nameText;
+    TMP_Text nameText;
+    [HideInInspector]
     public UnityEngine.UI.Button continueButton;
-    public UnityEngine.UI.Image convoBackground;
-    public UnityEngine.UI.Image nameBackground;
+    UnityEngine.UI.Image convoBackground;
+    UnityEngine.UI.Image nameBackground;
 
     // Interaction Management
     public string interactionKey = "e";
@@ -29,6 +31,9 @@ public class ConversationManager : MonoBehaviour
 
     // Player manager
     ClickPlayerController player;
+    FPStoryController altPlayer;
+
+    // Testing
 
     // Start is called before the first frame update
     void Awake()
@@ -36,14 +41,35 @@ public class ConversationManager : MonoBehaviour
         // Snag reference to the NPC text UI component
         npcText = npcTextUI.npcText;
         nameText = npcTextUI.nameText;
+        nameText.text = NPCName;
         continueButton = npcTextUI.continueButton;
         convoBackground = npcTextUI.convoBackground;
         nameBackground = npcTextUI.nameBackground;
 
-        interactPrompt.text = "Press " + interactionKey + " to talk";
-        interactPrompt.gameObject.SetActive(false);
+        if(interactPrompt)
+        {
+            interactPrompt.text = "Press " + interactionKey + " to talk";
+            interactPrompt.gameObject.SetActive(false);
+        }
 
-        player = GameObject.Find("Player").GetComponent<ClickPlayerController>();
+
+        try
+        {
+            player = GameObject.Find("ClickMovePlayer").GetComponentInChildren<ClickPlayerController>();
+        } 
+        catch(System.NullReferenceException e)
+        {
+            Debug.Log("No click player in scene!");
+        }
+        try
+        {
+            altPlayer = GameObject.Find("FirstPersonPlayer").GetComponent<FPStoryController>();
+        } 
+        catch(System.NullReferenceException e)
+        {
+            Debug.Log("No first person controller in scene!");
+        }
+        
 
         DisableConversationUI();
         
@@ -61,7 +87,10 @@ public class ConversationManager : MonoBehaviour
             ableToTalkTo = true;
 
             // Turn on world UI talk prompt
-            interactPrompt.gameObject.SetActive(true);
+            if(interactPrompt)
+            {
+                interactPrompt.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -72,7 +101,10 @@ public class ConversationManager : MonoBehaviour
             ableToTalkTo = false;
             
             // Turn off world UI talk prompts
-            interactPrompt.gameObject.SetActive(false);
+            if(interactPrompt)
+            {
+                interactPrompt.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -80,10 +112,16 @@ public class ConversationManager : MonoBehaviour
     {
         if(ableToTalkTo && Input.GetKeyDown(interactionKey))
         {
-            Debug.Log("I interacted!");
             EnableConversationUI();
             // Disable player controls
-            player.TurnOffControl();
+            if(player)
+            {
+                player.TurnOffControl();
+            }
+            else if(altPlayer)
+            {
+                altPlayer.TurnOffControl();
+            }
             // Turn on and start current convo
             conversations[currentConversationState].enabled = true;
             conversations[currentConversationState].StartConversation();

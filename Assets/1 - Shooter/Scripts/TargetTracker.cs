@@ -15,7 +15,7 @@ public class TargetTracker : MonoBehaviour
     void Update()
     {
         // Keep track of # of collectables left
-        numberOfTargetsLeft = transform.childCount;
+        numberOfTargetsLeft = transform.childCount-1;
         targetsLeftText.text = "Targets Left: " + numberOfTargetsLeft;
 
         // Process end state (when all collectables are collected)!

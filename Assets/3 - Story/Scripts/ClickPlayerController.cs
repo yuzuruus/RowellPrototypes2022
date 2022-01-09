@@ -94,11 +94,13 @@ public class ClickPlayerController : MonoBehaviour
     public void TurnOffControl()
     {
         controlActive = false;
+        Debug.Log("CLICK CONTROLS OFF");
     }
 
     public void TurnOnControl()
     {
         controlActive = true;
+        Debug.Log("CLICK CONTROLS ON");
     }
 
 }
