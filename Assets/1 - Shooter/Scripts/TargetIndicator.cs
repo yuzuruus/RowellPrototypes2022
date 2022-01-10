@@ -28,32 +28,55 @@ public class TargetIndicator : MonoBehaviour
     {
         //if (Input.GetMouseButtonUp(0))
         {
-            Collider selectedCollider = GetTargetFromMouseClick();
+            Collider selectedCollider = GetTargetFromMouseHover();
 
             if (selectedCollider && selectedCollider.tag == "Shootable")
             {
+                /*
                 if (targets.Contains(selectedCollider))
                 {
                     targets.Remove(selectedCollider);
                     return;
                 }
+                */
+                targets.Add(selectedCollider);
+            }
+            else
+            {
                 if (!allowMultipleTargets)
                 {
-                    targets.Clear();
+                     targets.Clear();
                 }
-                targets.Add(selectedCollider);
             }
         }
     }
 
-    Collider GetTargetFromMouseClick()
+    Collider GetTargetFromMouseHover()
     {
+        /*
         RaycastHit hitInfo = new RaycastHit();
         Ray ray = targetCamera.ScreenPointToRay(Input.mousePosition);
         bool hit = Physics.Raycast(ray, out hitInfo);
         if (hit)
         {
             return hitInfo.collider;
+        }
+
+        return null;
+        */
+
+
+
+        // Create a vector at the center of our camera's viewport
+        Vector3 rayOrigin = targetCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
+
+        // Declare a raycast hit to store information about what our raycast has hit
+        RaycastHit hit;
+
+        // Check if our raycast has hit anything
+        if (Physics.Raycast(rayOrigin, targetCamera.transform.forward, out hit, 500))
+        {
+            return hit.collider;
         }
 
         return null;

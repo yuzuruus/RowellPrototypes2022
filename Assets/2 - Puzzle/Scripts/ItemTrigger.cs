@@ -33,18 +33,21 @@ public class ItemTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Entered trigger!");
-        string colliderTag = other.gameObject.tag;  // Get access to the tag of the collider!
+        SC_PickItem item = other.gameObject.GetComponent<SC_PickItem>();  // Get access to the script
+        Debug.Log("Time for name!");
+        string itemName = "";
+        if(item)
+        {
+            itemName = item.itemName;
+        }
+        else
+        {
+            item = other.gameObject.GetComponentInParent<SC_PickItem>();
+            itemName = item.itemName;
+        }
 
         // Process whether or not this collision should trigger a specific response!
-        if(ItemTypeText == "Sphere" && colliderTag == "Sphere")
-        {
-            connectedObject.SetActive(!StartOn);
-        }
-        else if(ItemTypeText == "Cube" && colliderTag == "Cube")
-        {
-            connectedObject.SetActive(!StartOn);
-        }
-        else if(ItemTypeText == "Cyllinder" && colliderTag == "Cyllinder")
+        if(ItemTypeText == itemName)
         {
             connectedObject.SetActive(!StartOn);
         }

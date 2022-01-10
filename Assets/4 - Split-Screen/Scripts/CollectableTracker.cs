@@ -18,7 +18,7 @@ public class CollectableTracker : MonoBehaviour
         numberOfCollectablesLeft = transform.childCount;
 
         // Process end state (when all collectables are collected)!
-        if(numberOfCollectablesLeft <= 0)
+        if(numberOfCollectablesLeft <= 1)
         {
             ProcessEndOfGame();
         }
@@ -26,7 +26,7 @@ public class CollectableTracker : MonoBehaviour
 
     void ProcessEndOfGame()
     {
-        winnerText.enabled = true;
+        winnerText.gameObject.SetActive(true);
 
         if(player1.myScore > player2.myScore)
         {

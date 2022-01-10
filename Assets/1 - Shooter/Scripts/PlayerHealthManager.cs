@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -37,7 +38,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            Debug.Log("You are dead!");
+            Scene scene = SceneManager.GetActiveScene(); 
+            SceneManager.LoadScene(scene.name);
         }
     }
 }

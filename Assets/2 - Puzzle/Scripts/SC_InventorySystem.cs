@@ -24,6 +24,10 @@ public class SC_InventorySystem : MonoBehaviour
     SC_PickItem detectedItem;
     int detectedItemIndex;
 
+
+
+    public GameObject objectInSight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -134,10 +138,11 @@ public class SC_InventorySystem : MonoBehaviour
         {
             Transform objectHit = hit.transform;
 
-            if (objectHit.CompareTag("Respawn"))
+            if (objectHit.CompareTag("Collectable"))
             {
                 if ((detectedItem == null || detectedItem.transform != objectHit) && objectHit.GetComponent<SC_PickItem>() != null)
                 {
+                    objectInSight = objectHit.gameObject;
                     SC_PickItem itemTmp = objectHit.GetComponent<SC_PickItem>();
 
                     //Check if item is in availableItemsList

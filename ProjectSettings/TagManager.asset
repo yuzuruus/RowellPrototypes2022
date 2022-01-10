@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Interactable Object
+  - Sphere
+  - Cube
+  - Cyllinder
+  - Collectable
+  - Ball
   layers:
   - Default
   - TransparentFX

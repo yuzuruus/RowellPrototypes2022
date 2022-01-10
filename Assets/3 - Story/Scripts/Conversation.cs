@@ -122,12 +122,14 @@ public class Conversation : MonoBehaviour
                     }
                     else  // No items needed, just talking!
                     {
+                        
                         currentText = initialText;
                         waitingForItems = true;
                     }
                 }
-                else if(currentText != initialText)
+                else //if(currentText != initialText)
                 {
+                    Debug.Log("Continuing Convo");
                     currentText = initialText;
                 }
             }

@@ -8,12 +8,12 @@ public class SC_PickItem : MonoBehaviour
     public string itemName = "Some Item"; //Each item must have an unique name
     public Texture itemPreview;
 
-    public GameObject contactedObject;
+    GameObject contactedObject;
 
     void Start()
     {
         //Change item tag to Respawn to detect when we look at it
-        gameObject.tag = "Respawn";
+        gameObject.tag = "Collectable";
     }
 
     public void PickItem()
