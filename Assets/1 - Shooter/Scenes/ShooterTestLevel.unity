@@ -508,8 +508,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358751599}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 6.222995, y: -3.8846421, z: 2.0653338}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 5.15, y: -3.23, z: 2.0653338}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112495808}
@@ -2506,12 +2506,12 @@ PrefabInstance:
     - target: {fileID: 6228472153371475757, guid: 4964cc88c98662f4e8d66d9b61549aa3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -814.02
+      value: -815.03
       objectReference: {fileID: 0}
     - target: {fileID: 6228472153371475757, guid: 4964cc88c98662f4e8d66d9b61549aa3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -186.84
+      value: -185.98
       objectReference: {fileID: 0}
     - target: {fileID: 6228472153371475757, guid: 4964cc88c98662f4e8d66d9b61549aa3,
         type: 3}
@@ -2988,7 +2988,7 @@ PrefabInstance:
     - target: {fileID: 1444511983601697542, guid: f5ec561ad4031934f937e955a20772cf,
         type: 3}
       propertyPath: hitForce
-      value: 200
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1444511983782308179, guid: f5ec561ad4031934f937e955a20772cf,
         type: 3}
@@ -3059,6 +3059,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RunstepLenghten
       value: 0.191
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444511983788900499, guid: f5ec561ad4031934f937e955a20772cf,
+        type: 3}
+      propertyPath: m_GravityMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444511983788900499, guid: f5ec561ad4031934f937e955a20772cf,
+        type: 3}
+      propertyPath: m_StickToGroundForce
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5ec561ad4031934f937e955a20772cf, type: 3}
